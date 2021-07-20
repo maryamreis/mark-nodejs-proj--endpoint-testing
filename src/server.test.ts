@@ -56,7 +56,7 @@ test("GET /quest/decline responds with an apocalyptic message", async () => {
   expect(response.body.options).toStrictEqual({ restart: "/" });
 });
 
-test.skip("GET /quest/start/impossible responds with instant 'death'", async () => {
+test("GET /quest/start/impossible responds with instant 'death'", async () => {
   const response = await supertest(app).get("/quest/start/impossible");
 
   // there is _some_ location
@@ -72,4 +72,34 @@ test.skip("GET /quest/start/impossible responds with instant 'death'", async () 
 
   // includes option to restart
   expect(response.body.options).toMatchObject({ restart: "/" });
+});
+
+test("GET /help", async () => {
+  const response = await supertest(app).get("/help");
+
+  expect(response.body.location).toBeDefined();
+
+  expect(response.body.speech.text).toMatch(/adventure/i);
+  expect(response.body.speech.text).toMatch(/endpoint/i);
+  expect(response.body.options).toMatchObject({ backToStart: "/" });
+
+});
+
+test("GET quest/start/easy", async () => {
+  const response = await supertest(app).get("/quest/start/easy");
+
+  expect(response.body.location).toMatch("Mars")
+  expect(response.body.speech.text).toMatch(/easy/i);
+
+  expect(response.body.options).toMatchObject({ restart: "/" });
+});
+
+test("GET quest/start/hard", async () => {
+  const response = await supertest(app).get("/quest/start/hard");
+
+  expect(response.body.location).toMatch("Venus")
+  expect(response.body.speech.text).toMatch(/hard/i);
+
+  expect(response.body.options).toMatchObject({ restart: "/" });
+
 });

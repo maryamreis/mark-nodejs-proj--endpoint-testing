@@ -53,6 +53,34 @@ app.get("/quest/accept", (req, res) => {
   });
 });
 
+app.get("/quest/start/easy", (req, res) => {
+  res.json({
+    location: "Mars",
+    speech: {
+      speaker: MYSTERIOUS_ROBED_FIGURE,
+      text:
+        "Here is easy mode",
+    },
+    options: {
+      restart: "/"
+    },
+  });
+});
+
+app.get("/quest/start/hard", (req, res) => {
+  res.json({
+    location: "Venus",
+    speech: {
+      speaker: MYSTERIOUS_ROBED_FIGURE,
+      text:
+        "Here is hard mode",
+    },
+    options: {
+      restart: "/"
+    },
+  });
+});
+
 app.get("/quest/decline", (req, res) => {
   res.json({
     location: "Apocalypse",
@@ -67,6 +95,22 @@ app.get("/quest/decline", (req, res) => {
       restart: "/",
     },
   });
+});
+
+// request asks the server, response is what it gets back to user
+app.get("/quest/start/impossible", (req, res) => {
+  res.json({
+    location: "Arizona",
+    speech: {
+      speaker: {
+        name: "Maryam"
+      },
+      text: "This is text is excruciating. There is a dragon throwing a fireball outside."
+    },
+    options: {
+      restart: "/"
+    }
+  })
 });
 
 export default app;
